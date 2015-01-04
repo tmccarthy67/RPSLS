@@ -6,6 +6,7 @@ var game;
 var result;
 
 var rules = function () {
+	//games rules builds depending on twhich mode selected
 	$("#selector").remove();
 	$("#header").append("<img src='images/RPSLS-rock.png'>");
 	$("#header").append("<img src='images/RPSLS-paper.png'>");
@@ -28,6 +29,7 @@ var rules = function () {
 }
 
 var chooseRPSSL = function () {
+	//player choices displayed - built depending on which mode selected
 	$("#game").append($("<p>").text("Make your choice"));
 	$("#game").append("<img id='rock' src='images/rock.png'>");
 	$("#game").append("<img id='paper' src='images/paper.png'>");
@@ -64,14 +66,12 @@ if (computer == 4) {
 if (computer == 5) {
 	computerChoice = "Lizard";
 };
-// console.log("Player Choice " + playerChoice);
-// console.log("computer choice " + computerChoice);
-// console.log("game " + game);
 
 winorlose();
 }
 
 var makeSelection = function () {
+	//player selects their choice
 $("#rock").click(function() {
 	playerChoice = "Rock";
 	computerSelect();
@@ -100,6 +100,7 @@ $("#lizard").click(function() {
 }
 
 var winorlose = function () {
+	//compares the players choice to computers choice
 	if (computerChoice == playerChoice) {
 		result = "Tie";
 	};
@@ -196,27 +197,33 @@ var winorlose = function () {
 	displayResults();
 }
 
+var resetscore = function () {
+	// reset scores
+	compScore=0;
+	playScore=0;
+	result="";
+	displayResults();
+}
+
+var mode =function () {
+	// reset game
+	location.reload();
+}
+
 var displayResults = function () {
+	//score board
 	$("#result").empty();
 	$("#result").append($("<p>").text(result));
 	$("#result").append($("<p>").text('Player wins '+playScore));
 	$("#result").append($("<p>").text('Computer wins '+compScore));
 }
-
-	// Scisssor cut Paper
-	// Paper covers Rock
-	// Rock crushes Lizard
-	// Lizard poisons Spock
-	// Spock smashes Scissors
-	// Scisssor decapitates Lizard
-	// Lizard eats Paper
-	// Paper disproves Spock
-	// Spock vaporizes Rock
-	// Rock crushes Scissors
-
+//initial state
 $("#selector").append($("<p id=classic>").text("Rock/Paper/Scissors"));
 $("#selector").append($("<p>").text("or"));
 $("#selector").append($("<p id=nonclassic>").text("Rock/Paper/Scissors/Lizard/Spock"));
+
+$("#reset").append($("<p id=mode>").text("Click to change MODE"));
+$("#reset").append($("<p id=resetscore>").text("Click to reset score"));
 
 $("#classic").click(function() {
 	game = 1;
@@ -228,3 +235,10 @@ $("#nonclassic").click(function() {
 	rules();
 });
 
+$("#resetscore").click(function(){
+	resetscore();
+});
+
+$("#mode").click(function(){
+	mode();
+});
